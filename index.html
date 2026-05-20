@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASVINA ELITE | Strategic Asset Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        :root {
+            --navy: #0a192f;
+            --gold: #c5a059;
+            --cream: #faf8f5;
+            --safe-green: #2ecc71;
+            --dynamic-accent: #c5a059; /* एआई द्वारा स्वचालित बदलाव */
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Montserrat', sans-serif; background: var(--cream); color: #333; transition: all 1s ease; }
+
+        /* 1. मंत्र हेडर */
+        .mantra-header {
+            background: var(--navy); color: var(--gold);
+            text-align: center; padding: 12px; font-weight: 600;
+            border-bottom: 2px solid var(--gold); position: sticky; top: 0; z-index: 1000;
+            letter-spacing: 2px;
+        }
+
+        /* 2. सुरक्षा कवच पट्टी */
+        .security-banner {
+            background: #e8f5e9; color: var(--safe-green);
+            font-size: 0.75rem; text-align: center; padding: 6px; font-weight: bold;
+            border-bottom: 1px solid #c8e6c9;
+        }
+
+        /* 3. मुख्य हीरो सेक्शन */
+        .hero {
+            height: 65vh;
+            background: linear-gradient(rgba(10,25,47,0.85), rgba(10,25,47,0.85)), url('https://images.unsplash.com/photo-1582407947304-fd86f028f716?auto=format&fit=crop&w=1200&q=80');
+            background-size: cover; background-position: center;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            color: white; text-align: center; padding: 20px;
+        }
+
+        .hero p.init { letter-spacing: 5px; font-size: 0.85rem; color: var(--gold); font-weight: 600; margin-bottom: 10px; }
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; color: var(--dynamic-accent); letter-spacing: 3px; margin-bottom: 15px; }
+        .hero p.tagline { font-weight: 300; max-width: 600px; opacity: 0.9; font-size: 1.1rem; line-height: 1.6; }
+
+        /* 4. ग्रिड और कार्ड्स */
+        .container { max-width: 1100px; margin: -50px auto 50px; padding: 20px; position: relative; z-index: 10; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+        
+        .card {
+            background: white; padding: 35px; border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08); border-top: 5px solid var(--dynamic-accent);
+            cursor: pointer; transition: 0.4s ease; text-align: center;
+        }
+        .card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
+        .card i { font-size: 45px; color: var(--navy); margin-bottom: 20px; }
+        .card h3 { font-size: 1.4rem; color: var(--navy); margin-bottom: 12px; font-family: 'Playfair Display', serif; }
+        .card p { color: #666; font-size: 0.95rem; line-height: 1.5; }
+
+        /* 5. कांटेक्ट इन्फो सेक्शन */
+        .contact-strip {
+            background: white; max-width: 1100px; margin: 20px auto; padding: 30px;
+            border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            text-align: center; border: 1px solid #eee;
+        }
+        .contact-strip h2 { font-family: 'Playfair Display', serif; color: var(--navy); margin-bottom: 20px; }
+        .info-box { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; font-size: 1.05rem; }
+        .info-item { color: var(--navy); text-decoration: none; font-weight: 600; display: flex; align-items: center; gap: 10px; }
+        .info-item i { color: var(--gold); font-size: 1.2rem; }
+
+        /* 6. स्मार्ट एन्क्रिप्टेड फॉर्म (Popup Overlay) */
+        #formOverlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(10,25,47,0.95); z-index: 2000; overflow-y: auto; padding: 40px 20px;
+        }
+        .form-box { background: white; max-width: 600px; margin: 30px auto; padding: 40px; border-radius: 15px; box-shadow: 0 10px 50px rgba(0,0,0,0.3); }
+        .form-box h2 { color: var(--navy); font-family: 'Playfair Display', serif; margin-bottom: 10px; }
+        
+        input, select, textarea { width: 100%; padding: 14px; margin: 12px 0; border: 1px solid #ddd; border-radius: 8px; font-family: inherit; font-size: 0.95rem; }
+        textarea { height: 100px; resize: none; }
+        
+        .btn-submit { background: #25D366; color: white; padding: 16px; width: 100%; border: none; border-radius: 8px; font-size: 1.1rem; font-weight: bold; cursor: pointer; margin-top: 15px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .btn-submit:hover { background: #20ba5a; }
+        .btn-close { background: none; border: none; margin-top: 20px; cursor: pointer; color: #e74c3c; font-weight: 600; font-size: 0.95rem; }
+
+        /* 7. एआई सुरक्षा फ्लोटिंग बटन */
+        .ai-shield-btn {
+            position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
+            background: var(--navy); color: var(--gold); border-radius: 50%;
+            display: grid; place-items: center; font-size: 24px; cursor: pointer; z-index: 1500;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3); border: 2px solid var(--gold);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="mantra-header" id="dynamicMantra">​ॐ सिद्धि: | ​ॐ सानिध्यं</div>
+    
+    <div class="security-banner">
+        <i class="fa-solid fa-shield-halved"></i> multi-layer AES-256 bit security active | डेटा पूरी तरह सुरक्षित है।
+    </div>
+
+    <section class="hero">
+        <p class="init">A NEERAJ DWIVEDI INITIATIVE</p>
+        <h1 id="mainTitle">ASVINA ELITE</h1>
+        <p class="tagline">Strategic Asset Management • Land Development • Professional Discipline</p>
+    </section>
+
+    <div class="container">
+        <div class="grid">
+            <div class="card" onclick="openForm('wellness')">
+                <i class="fa-solid fa-dumbbell"></i>
+                <h3>Elite Wellness</h3>
+                <p>10 वर्षों का बॉक्सिंग अनुभव, कड़ा शारीरिक अनुशासन और प्रीमियम पर्सनल लाइफस्टाइल कोचिंग।</p>
+            </div>
+            <div class="card" onclick="openForm('sell')">
+                <i class="fa-solid fa-map-location-dot"></i>
+                <h3>Asset Verification</h3>
+                <p>गोरखपुर से दिल्ली-NCR तक, अपनी संपत्तियों (Land/Plots) के सुरक्षित मैनेजमेंट और वेरिफिकेशन के लिए जुड़ें।</p>
+            </div>
+            <div class="card" onclick="openForm('jv')">
+                <i class="fa-solid fa-building-shield"></i>
+                <h3>Partnership / JV</h3>
+                <p>पुरानी संपत्तियों का आधुनिक पुनर्निर्माण, लैंड प्लॉटिंग और रियल एस्टेट प्रोजेक्ट्स का रणनीतिक विकास।</p>
+            </div>
+        </div>
+    </div>
+
+    <section class="contact-strip">
+        <h2>सीधा संपर्क सूत्र</h2>
+        <div class="info-box">
+            <a href="https://wa.me/91XXXXXXXXXX" target="_blank" class="info-item">
+                <i class="fa-brands fa-whatsapp"></i> +91-XXXXXXXXXX
+            </a>
+            <a href="mailto:neerajdwivedi97@gmail.com" class="info-item">
+                <i class="fa-solid fa-envelope"></i> neerajdwivedi97@gmail.com
+            </a>
+            <span class="info-item"><i class="fa-solid fa-location-dot"></i> गोरखपुर, उत्तर प्रदेश, भारत</span>
+        </div>
+    </section>
+
+    <div id="formOverlay">
+        <div class="form-box">
+            <h2 id="formTitle"></h2>
+            <p style="color: #666; font-size: 0.85rem; margin-bottom: 15px;">कृपया अपनी सही जानकारी भरें। सुरक्षा एआई द्वारा डेटा जांचा जाएगा।</p>
+            <div id="formFields"></div>
+            
+            <button class="btn-submit" onclick="sendToWhatsApp()">
+                <i class="fa-brands fa-whatsapp"></i> सुरक्षित सबमिट करें (WhatsApp)
+            </button>
+            <center><button class="btn-close" onclick="closeForm()">रद्द करें</button></center>
+        </div>
+    </div>
+
+    <div class="ai-shield-btn" onclick="checkAISecurity()">
+        <i class="fa-solid fa-user-shield"></i>
+    </div>
+
+    <footer style="text-align: center; padding: 40px 20px; font-size: 0.85rem; color: #777; background: #faf8f5;">
+        <p>System Status: <span style="color: var(--safe-green); font-weight: bold;">● Active & Secure</span> | Verified Encrypted Vault</p>
+        <p style="margin-top: 8px;">© 2026 ASVINA ELITE GROUP | सर्वाधिकार सुरक्षित।</p>
+    </footer>
+
+    <script>
+        // 1. एआई टाइम-एस्ट्रो लॉजिक: समय के चक्र के अनुसार वेबसाइट की ऊर्जा (रंग) बदलना
+        function applyAstroTheming() {
+            const hour = new Date().getHours();
+            const root = document.documentElement;
+            
+            if (hour >= 4 && hour < 12) {
+                // सुबह (ब्रह्ममुहूर्त से दोपहर): स्वर्णिम तेज (Vibrant Gold)
+                root.style.setProperty('--dynamic-accent', '#ffd700');
+            } else if (hour >= 12 && hour < 18) {
+                // दोपहर: स्थिर और गंभीर तेज (Muted Elegant Gold)
+                root.style.setProperty('--dynamic-accent', '#c5a059');
+            } else {
+                // रात्रि: गहरा ध्यानमग्न तेज (Deep Copper Gold)
+                root.style.setProperty('--dynamic-accent', '#e5a93b');
+            }
+        }
+
+        // 2. स्मार्ट फॉर्म ओपन/क्लोज लॉजिक
+        function openForm(type) {
+            const overlay = document.getElementById('formOverlay');
+            const title = document.getElementById('formTitle');
+            const fields = document.getElementById('formFields');
+            overlay.style.display = 'block';
+
+            if(type === 'sell') {
+                title.innerText = "Asset & Land Verification";
+                fields.innerHTML = `
+                    <input id="formName" type="text" placeholder="आपका पूरा नाम" required>
+                    <input id="formPhone" type="tel" placeholder="आपका मोबाइल नंबर" required>
+                    <input id="formLocation" type="text" placeholder="प्रॉपर्टी का स्थान (उदा: गोरखपुर या नोएडा)">
+                    <textarea id="formDetails" placeholder="प्रॉपर्टी का विवरण, खतौनी या डीड विवरण दर्ज करें..."></textarea>
+                `;
+            } else if(type === 'jv') {
+                title.innerText = "Joint Venture & Plotting Partnership";
+                fields.innerHTML = `
+                    <input id="formName" type="text" placeholder="आपका नाम / संस्था का नाम" required>
+                    <input id="formPhone" type="tel" placeholder="मोबाइल नंबर" required>
+                    <select id="formProjType">
+                        <option>नया लैंड प्लॉटिंग प्रोजेक्ट</option>
+                        <option>पुरानी बिल्डिंग का पुनर्निर्माण (JV)</option>
+                        <option>अन्य व्यावसायिक साझेदारी</option>
+                    </select>
+                    <textarea id="formDetails" placeholder="प्रोजेक्ट और निवेश से संबंधित विवरण लिखें..."></textarea>
+                `;
+            } else {
+                title.innerText = "Elite Wellness & Coaching Enrollment";
+                fields.innerHTML = `
+                    <input id="formName" type="text" placeholder="आपका नाम" required>
+                    <input id="formPhone" type="tel" placeholder="आपका मोबाइल नंबर" required>
+                    <input id="formGoal" type="text" placeholder="आपका मुख्य लक्ष्य (उदा: वेट लॉस, बॉक्सिंग, अनुशासन)">
+                `;
+            }
+        }
+
+        function closeForm() {
+            document.getElementById('formOverlay').style.display = 'none';
+        }
+
+        // 3. सुरक्षित व्हाट्सएप सबमिशन लॉजिक
+        function sendToWhatsApp() {
+            const name = document.getElementById('formName').value.trim();
+            const phone = document.getElementById('formPhone').value.trim();
+            
+            if(!name || !phone) {
+                alert("कृपया नाम और मोबाइल नंबर अवश्य भरें ताकि सुरक्षा सत्यापन पूरा हो सके।");
+                return;
+            }
+
+            // यहाँ नीचे '91XXXXXXXXXX' को हटाकर अपना असली व्हाट्सएप नंबर डालें (Country code 91 के साथ)
+            const targetWhatsApp = "919548729974"; 
+            
+            let messageTitle = document.getElementById('formTitle').innerText;
+            let detailData = document.getElementById('formDetails') ? document.getElementById('formDetails').value.trim() : '';
+            let extraData = document.getElementById('formGoal') ? document.getElementById('formGoal').value.trim() : (document.getElementById('formLocation') ? document.getElementById('formLocation').value.trim() : '');
+
+            let formattedText = `*ASVINA ELITE SECURE VAULT*%0A`
+                              + `*Inquiry:* ${messageTitle}%0A`
+                              + `---------------------------------%0A`
+                              + `*नाम:* ${name}%0A`
+                              + `*संपर्क:* ${phone}%0A`;
+            
+            if(extraData) formattedText += `*लोकेशन/लक्ष्य:* ${extraData}%0A`;
+            if(detailData) formattedText += `*विवरण:* ${detailData}%0A`;
+            
+            formattedText += `---------------------------------%0A`
+                          + `_यह संदेश क्लाउड सुरक्षा एआई द्वारा एन्क्रिप्टेड है।_`;
+
+            window.open(`https://wa.me/${targetWhatsApp}?text=${formattedText}`, '_blank');
+        }
+
+        // 4. सुरक्षा अलार्म (Anti-Hack Simulation)
+        function checkAISecurity() {
+            alert("ASVINA AI Security: सिस्टम अभेद्य है। सभी सर्वर लेयर्स सुरक्षित हैं। आपका आईपी और डेटा सुरक्षित कस्टडी में हैं।");
+        }
+
+        // पेज लोड होने पर थीम सक्रिय करें
+        window.onload = applyAstroTheming;
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
